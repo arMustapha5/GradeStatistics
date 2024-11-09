@@ -1,7 +1,6 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class GradeStatistics {
+class GradeStatistics {
 
     // Method to compute the maximum grade
     public static int findMax(int[] scores) {
@@ -92,17 +91,24 @@ public class GradeStatistics {
 
         // Step 1: Read input for the number of students with validation
         while (true) {
+            System.out.print("Enter the number of students (no spaces): ");
+            String input = scanner.nextLine();
+
+            // Check if the input contains any spaces
+            if (input.contains(" ")) {
+                System.out.println("Error: No spaces allowed. Please enter a valid number.");
+                continue;
+            }
+
             try {
-                System.out.print("Enter the number of students: ");
-                N = scanner.nextInt();
+                N = Integer.parseInt(input);
                 if (N <= 0) {
                     System.out.println("Number of students must be a positive integer. Please try again.");
                 } else {
                     break;
                 }
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a positive integer.");
-                scanner.next(); // Clear the invalid input
             }
         }
 
@@ -112,18 +118,26 @@ public class GradeStatistics {
         System.out.println("Enter the grades of the students:");
         for (int i = 0; i < N; i++) {
             while (true) {
+                System.out.print("Grade for student " + (i + 1) + " (no spaces): ");
+                String gradeInput = scanner.nextLine();
+
+                // Check if the input contains any spaces
+                if (gradeInput.contains(" ")) {
+                    System.out.println("Error: No spaces allowed. Please enter a valid grade.");
+                    continue;
+                }
+
                 try {
-                    System.out.print("Grade for student " + (i + 1) + ": ");
-                    int score = scanner.nextInt();
+                    int score = Integer.parseInt(gradeInput);
+
                     if (score >= 0 && score <= 100) {
                         scores[i] = score;
                         break; // Valid input, exit loop
                     } else {
                         System.out.println("Invalid input. Please enter a grade between 0 and 100.");
                     }
-                } catch (InputMismatchException e) {
+                } catch (NumberFormatException e) {
                     System.out.println("Invalid input. Please enter an integer between 0 and 100.");
-                    scanner.next(); // Clear the invalid input
                 }
             }
         }
